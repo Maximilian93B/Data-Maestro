@@ -4,13 +4,13 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/yourdbname';
+const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/Maestro';
 
 const connectDB = async () => {
   try {
     await mongoose.connect(mongoUri, {
     });
-    console.log('Database connected:', mongoUri);
+    console.log('Maestros MongoDB connected');
   } catch (error) {
     console.error('Database connection error:', error);
     process.exit(1);

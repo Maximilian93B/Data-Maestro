@@ -1,7 +1,5 @@
 
 import dotenv from 'dotenv'; 
-import mongoose from 'mongoose';
-import db from './db/connectDB';
 import { typeDefs, resolvers } from './graphql/schema';
 import  express  from 'express';
 import { ApolloServer } from 'apollo-server-express';
@@ -21,7 +19,7 @@ const apolloServer = new ApolloServer ({ typeDefs, resolvers });
 const startMaestroServer = async () => {
         try {
             // Wait for the database connection to be established
-            await connectDB;
+            await connectDB();
         
             // Start Apollo Server
             await apolloServer.start();
