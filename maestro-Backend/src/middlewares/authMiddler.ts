@@ -28,22 +28,24 @@ export const authJose = async (req: Request, res: Response, next: NextFunction) 
         }
 
         // Attach user to request object
-        req.user = {
+        (req as any).user = {
             id: user.id,
             role: user.role,
         };
 
         next();
     } catch (err) {
-        res.status(400).send('Invalid token from jose');
+        console.error('Error verifying token:', err);
+        res.status(400).send('Invalid token.');
     }
 };
 
 // Auth function for user/admin roles
 export const authorizeRoles = (...roles: string[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        if (!req.user || !roles.includes(req.user.role)) {
-            return res.status(403).send('Access denied');
+        const user = (req as any).user;
+        if (!user || !roles.includes(user.role)) {
+            return res.status(403).send('Access denied. Insufficient permissions.');
         }
         next();
     };
